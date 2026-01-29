@@ -24,11 +24,11 @@
         <version.esslibs>1.0-SNAPSHOT</version.esslibs>
         <revision>${version.esslibs}</revision>
         <!-- specs versions -->
-        <version.microprofile>6.0</version.microprofile>
+        <version.microprofile>6.1</version.microprofile>
         <version.jakartaee>10.0.0</version.jakartaee>
         <!-- server versions -->
-        <version.tomee.plugin>10.0.0</version.tomee.plugin>
-        <version.tomee.server>10.0.0</version.tomee.server>
+        <version.tomee.plugin>10.1.3</version.tomee.plugin>
+        <version.tomee.server>10.1.3</version.tomee.server>
         <!-- additional jakarta libs versions -->
         <version.jpa>3.1.0</version.jpa>
         <version.transactionapi>2.0.1</version.transactionapi>
