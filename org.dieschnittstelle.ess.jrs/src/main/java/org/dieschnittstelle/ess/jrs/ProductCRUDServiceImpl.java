@@ -6,6 +6,7 @@ import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.Context;
 import org.apache.logging.log4j.Logger;
 import org.dieschnittstelle.ess.entities.GenericCRUDExecutor;
+import org.dieschnittstelle.ess.entities.erp.AbstractProduct;
 import org.dieschnittstelle.ess.entities.erp.IndividualisedProductItem;
 
 import java.util.List;
@@ -18,35 +19,35 @@ import static org.dieschnittstelle.ess.jrs.TouchpointCRUDServiceImpl.logger;
 
 public class ProductCRUDServiceImpl implements IProductCRUDService {
 	protected static Logger logger = org.apache.logging.log4j.LogManager.getLogger(ProductCRUDServiceImpl.class);
-	private GenericCRUDExecutor<IndividualisedProductItem> productCRUD;
+	private GenericCRUDExecutor<AbstractProduct> productCRUD;
 
 	public ProductCRUDServiceImpl(@Context ServletContext servletContext, @Context HttpServletRequest request) {
 		logger.info("<constructor>: " + servletContext + "/" + request);
-		this.productCRUD = (GenericCRUDExecutor<IndividualisedProductItem>) servletContext.getAttribute("productCRUD");
+		this.productCRUD = (GenericCRUDExecutor<AbstractProduct>) servletContext.getAttribute("productCRUD");
 		logger.debug("read out the productCRUD from the servlet context: " + this.productCRUD);
 	}
 
 	@Override
-	public IndividualisedProductItem createProduct(
-			IndividualisedProductItem prod) {
-		return (IndividualisedProductItem) this.productCRUD.createObject(prod);
+	public AbstractProduct createProduct(
+			AbstractProduct prod) {
+		return (AbstractProduct) this.productCRUD.createObject(prod);
 	}
 
 	@Override
-	public List<IndividualisedProductItem> readAllProducts() {
+	public List<AbstractProduct> readAllProducts() {
 		return (List) this.productCRUD.readAllObjects();
 	}
 
 	@Override
-	public IndividualisedProductItem updateProduct(long id,
-			IndividualisedProductItem update) {
+	public AbstractProduct updateProduct(long id,
+	                                     AbstractProduct update) {
 		update.setId(id);
-		return (IndividualisedProductItem) this.productCRUD.updateObject(update);
+		return (AbstractProduct) this.productCRUD.updateObject(update);
 	}
 
 	@Override
 	public boolean deleteProduct(long id) {
-		IndividualisedProductItem productToDelete = this.productCRUD.readObject(id);
+		AbstractProduct productToDelete = this.productCRUD.readObject(id);
 		if (productToDelete == null){
 			throw new NotFoundException("Product to delete was not found");
 		}
@@ -54,8 +55,8 @@ public class ProductCRUDServiceImpl implements IProductCRUDService {
 	}
 
 	@Override
-	public IndividualisedProductItem readProduct(long id) {
-		IndividualisedProductItem product =  this.productCRUD.readObject(id);
+	public AbstractProduct readProduct(long id) {
+		AbstractProduct product =  this.productCRUD.readObject(id);
 		if (product == null) {
 			throw new NotFoundException("Product with id: " + id + " was not found");
 		}
