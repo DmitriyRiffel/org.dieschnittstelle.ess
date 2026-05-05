@@ -34,10 +34,9 @@ public class ShowAnnotations {
      */
     private static void showAttributes(Object instance) {
         Class klass = instance.getClass();
-        show("class is: " + klass);
-        Field[] fields = {};
+        StringBuilder sb = new StringBuilder();
+        sb.append("{").append(klass.getSimpleName()).append(" ");
         try {
-
             // TODO BAS2: create a string representation of instance by iterating
             //  over the object's attributes / fields as provided by its class
             //  and reading out the attribute values. The string representation
@@ -46,11 +45,14 @@ public class ShowAnnotations {
             //  is required here.
              for (Field field : klass.getDeclaredFields()) {
                  String methodName = getAccessorNameForField("get", field.getName());
-                 Method method = klass.getMethod(methodName);
-                 var value = method.invoke(instance);
-                 show("fields: " + fields);
-                 show("%s %s: %s", klass.getSimpleName(), field.getName(), value);
+                 Method getMethod = klass.getMethod(methodName);
+                 var value = getMethod.invoke(instance);
+                 var attr = field.getName();
+                 sb.append(attr).append(":").append(value).append(", ");
              }
+             sb.setLength(sb.length()-2);
+             sb.append("}");
+             show(sb.toString());
             // TODO BAS3: if the new @DisplayAs annotation is present on a field,
             //  the string representation will not use the field's name, but the name
             //  specified in the the annotation. Regardless of @DisplayAs being present
