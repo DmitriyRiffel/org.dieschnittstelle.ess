@@ -50,17 +50,16 @@ public class ProductCRUDServiceImpl implements IProductCRUDService {
 		if (productToDelete == null){
 			throw new NotFoundException("Product to delete was not found");
 		}
-		boolean deleted = this.productCRUD.deleteObject(id);
-		logger.debug("Try to delete a product: " + deleted);
-		if (!deleted) {
-			throw new NotFoundException("Product was not deleted!");
-		}
-		return true;
+		return this.productCRUD.deleteObject(id);
 	}
 
 	@Override
 	public IndividualisedProductItem readProduct(long id) {
-		return (IndividualisedProductItem) this.productCRUD.readObject(id);
+		IndividualisedProductItem product =  this.productCRUD.readObject(id);
+		if (product == null) {
+			throw new NotFoundException("Product with id: " + id + " was not found");
+		}
+		return product;
 	}
 	
 }
