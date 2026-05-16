@@ -4,14 +4,17 @@ import org.dieschnittstelle.ess.basics.annotations.Initialise;
 import org.dieschnittstelle.ess.basics.annotations.Brandname;
 import org.dieschnittstelle.ess.basics.annotations.StockItem;
 import org.dieschnittstelle.ess.basics.annotations.Units;
+import org.dieschnittstelle.ess.basics.reflection.DisplayAs;
 
 @StockItem
 public class Milch {
 
 	@Units
+	@DisplayAs("Menge")
 	private int menge;
 
 	@Brandname
+	@DisplayAs("Hersteller")
 	private String markenname;
 
 	public int getMenge() {

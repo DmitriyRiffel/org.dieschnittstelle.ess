@@ -4,13 +4,16 @@ import org.dieschnittstelle.ess.basics.annotations.Initialise;
 import org.dieschnittstelle.ess.basics.annotations.Brandname;
 import org.dieschnittstelle.ess.basics.annotations.StockItem;
 import org.dieschnittstelle.ess.basics.annotations.Units;
+import org.dieschnittstelle.ess.basics.reflection.DisplayAs;
 
 @StockItem
 public class Schokolade {
 
 	@Units
+	@DisplayAs("Menge")
 	private int anzahlStuecke;
 
+	@DisplayAs("Markenlabel")
 	private String marke;
 
 	public int getAnzahlStuecke() {

@@ -3,6 +3,7 @@ package org.dieschnittstelle.ess.basics;
 
 import org.dieschnittstelle.ess.basics.annotations.AnnotatedStockItemBuilder;
 import org.dieschnittstelle.ess.basics.annotations.StockItemProxyImpl;
+import org.dieschnittstelle.ess.basics.reflection.DisplayAs;
 
 import static org.dieschnittstelle.ess.basics.reflection.ReflectedStockItemBuilder.getAccessorNameForField;
 import static org.dieschnittstelle.ess.utils.Utils.*;
@@ -35,7 +36,7 @@ public class ShowAnnotations {
     private static void showAttributes(Object instance) {
         Class klass = instance.getClass();
         StringBuilder sb = new StringBuilder();
-        sb.append("{").append(klass.getSimpleName()).append(" ");
+        sb.append("{ ").append("Produkt: ").append(klass.getSimpleName()).append(", ");
         try {
             // TODO BAS2: create a string representation of instance by iterating
             //  over the object's attributes / fields as provided by its class
@@ -48,15 +49,21 @@ public class ShowAnnotations {
                  Method getMethod = klass.getMethod(methodName);
                  var value = getMethod.invoke(instance);
                  var attr = field.getName();
-                 sb.append(attr).append(":").append(value).append(", ");
+
+                 // TODO BAS3: if the new @DisplayAs annotation is present on a field,
+                 //  the string representation will not use the field's name, but the name
+                 //  specified in the the annotation. Regardless of @DisplayAs being present
+                 //  or not, the field's value will be included in the string representation.
+                 DisplayAs displayAs = field.getAnnotation(DisplayAs.class);
+                 if (displayAs != null){
+                     attr = displayAs.value();
+                 }
+                 sb.append(attr).append(": ").append(value).append(", ");
              }
              sb.setLength(sb.length()-2);
-             sb.append("}");
+             sb.append(" }");
              show(sb.toString());
-            // TODO BAS3: if the new @DisplayAs annotation is present on a field,
-            //  the string representation will not use the field's name, but the name
-            //  specified in the the annotation. Regardless of @DisplayAs being present
-            //  or not, the field's value will be included in the string representation.
+
 
         } catch (Exception e) {
             e.printStackTrace();
