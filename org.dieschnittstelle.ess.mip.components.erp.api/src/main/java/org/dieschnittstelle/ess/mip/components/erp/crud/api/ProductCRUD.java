@@ -2,6 +2,8 @@ package org.dieschnittstelle.ess.mip.components.erp.crud.api;
 
 import java.util.List;
 
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import org.dieschnittstelle.ess.entities.erp.AbstractProduct;
 import org.dieschnittstelle.ess.entities.erp.Campaign;
 
@@ -11,18 +13,31 @@ import org.dieschnittstelle.ess.entities.erp.Campaign;
  * See TouchpointCRUDImpl for an example bean with a similar scope of functionality
  */
 
+@Path("/products")
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public interface ProductCRUD {
 
+	@POST
 	public AbstractProduct createProduct(AbstractProduct prod);
 
+	@GET
 	public List<AbstractProduct> readAllProducts();
 
-	public AbstractProduct updateProduct(AbstractProduct update);
+	@PUT
+	@Path("/{productId}")
+	public AbstractProduct updateProduct(@PathParam("productId") AbstractProduct update);
 
-	public AbstractProduct readProduct(long productID);
+	@GET
+	@Path("/{productId}")
+	public AbstractProduct readProduct(@PathParam("productId") long productID);
 
-	public boolean deleteProduct(long productID);
+	@DELETE
+	@Path("/{productId}")
+	public boolean deleteProduct(@PathParam("productId") long productID);
 
-	public List<Campaign> getCampaignsForProduct(long productID);
+	@GET
+	@Path("/{productId}/campaigns")
+	public List<Campaign> getCampaignsForProduct(@PathParam("productId") long productID);
 
 }
