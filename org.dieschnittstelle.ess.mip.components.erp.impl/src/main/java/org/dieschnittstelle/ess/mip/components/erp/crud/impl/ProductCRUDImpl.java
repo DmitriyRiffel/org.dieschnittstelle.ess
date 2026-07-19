@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.InternalServerErrorException;
 import org.dieschnittstelle.ess.entities.erp.AbstractProduct;
 import org.dieschnittstelle.ess.entities.erp.Campaign;
+import org.dieschnittstelle.ess.entities.erp.IndividualisedProductItem;
+import org.dieschnittstelle.ess.entities.erp.ProductType;
 import org.dieschnittstelle.ess.mip.components.erp.crud.api.ProductCRUD;
 
 import java.util.List;
@@ -28,6 +30,10 @@ public class ProductCRUDImpl implements ProductCRUD {
 
     @Override
     public List<AbstractProduct> readAllProducts() {
+//        IndividualisedProductItem prod = new IndividualisedProductItem();
+//        prod.setName("Kirschplunder");
+//        prod.setProductType(ProductType.PASTRY);
+//        return List.of(prod);
         Query query = em.createQuery("SELECT p FROM AbstractProduct p");
         return query.getResultList();
     }
